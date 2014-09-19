@@ -52,7 +52,7 @@ class CustomSettingsPage
 
         add_settings_field(
             'ph_info',
-            'Call to Action: Phone Number',
+            'PRIMARY Phone Number',
             array( $this, 'phone_callback' ),
             'custom-setting-admin',
             'setting_section_id'
@@ -60,7 +60,7 @@ class CustomSettingsPage
 
         add_settings_field(
             'fb_link',
-            'Facebook Link',
+            'Corporate Facebook Link',
             array( $this, 'fb_callback' ),
             'custom-setting-admin',
             'setting_section_id'
@@ -68,7 +68,7 @@ class CustomSettingsPage
 
         add_settings_field(
             'tw_link',
-            'Twitter Link',
+            'Corporate Twitter Link',
             array( $this, 'tw_callback' ),
             'custom-setting-admin',
             'setting_section_id'
@@ -76,7 +76,7 @@ class CustomSettingsPage
 
         add_settings_field(
             'gp_link',
-            'YouTube Link',
+            'Corporate YouTube Link',
             array( $this, 'gp_callback' ),
             'custom-setting-admin',
             'setting_section_id'
@@ -84,7 +84,7 @@ class CustomSettingsPage
 
         add_settings_field(
             'li_link',
-            'LinkedIn Link',
+            'Corporate LinkedIn Link',
             array( $this, 'li_callback' ),
             'custom-setting-admin',
             'setting_section_id'
@@ -108,7 +108,7 @@ class CustomSettingsPage
 
     public function print_section_info()
     {
-        print 'Edit the custom settings for your site below:';
+        print 'Edit the Custom Settings for your site below. <br />All settings below will be applied to appropriate sections of the website.';
     }
     public function phone_callback()
     {

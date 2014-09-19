@@ -7,10 +7,10 @@
  * @since Dev Blank 0.0
  */
 
-get_header(); ?>
-<div class="large-8 medium-8 columns show-for-medium-up">
+get_header(); ?><br clear="all" />
+<div class="small-12 large-8 medium-8 columns">
     <div id="primary" class="site-content">
-        <div id="content" role="main">single.php
+        <div id="content" role="main">
 
             <?php while ( have_posts() ) : the_post(); ?>
 
@@ -22,7 +22,7 @@ get_header(); ?>
                         endif; ?>
 
                         <?php if ( is_single() ) : ?>
-                        <div class="meta">
+                        <!--<div class="meta">
                             <span class="sub-text">
                                 <a href="#" rel="category"><?php the_category(', '); ?></a>
                                 <br>
@@ -31,7 +31,7 @@ get_header(); ?>
                             <span class="sub-text">
                                 <?php do_action( 'sm_dlr_text' ); ?>
                             </span>
-                        </div>
+                        </div>-->
                         <h2 class="entry-title"><?php the_title(); ?></h2>
 
                         <?php else : ?>
@@ -88,10 +88,10 @@ get_header(); ?>
                     }else{
                         $cats = 'uncategorized';
                     };
-                    echo do_shortcode('[display-posts columns="4" image_size="related-thumb" orderby="comment_count" category="'.$cats.'" not_in="' . $thepost . '"]');?>
+                    echo do_shortcode('[display-posts posts_per_page="4" columns="4" image_size="related-thumb" orderby="comment_count" category="'.$cats.'" not_in="' . $thepost . '"]');?>
                 </div>
 
-                <?php comments_template( '', true ); ?>
+                <?php //comments_template( '', true ); ?>
 
             <?php endwhile; // end of the loop. ?>
 
@@ -99,7 +99,6 @@ get_header(); ?>
     </div><!-- #primary -->
 </div>
 <div id="mobile-single" class="small-12 show-for-small-only columns">
-    Mobile Singlepage Content
 
 </div>
 <?php get_sidebar(); ?>

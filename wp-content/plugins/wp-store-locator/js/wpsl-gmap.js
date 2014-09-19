@@ -1203,7 +1203,7 @@ function storeHtml( response, url ) {
 		address2 = "<span class='wpsl-street'>" + response.address2 + "</span>";
 	}
 
-	html = "<li data-store-id='" + id + "'><div><p>" + storeImg + "<strong>" + store + "</strong><span class='wpsl-street'>" + address + "</span>" + address2 + city + " " + state + " " + zip + "<span class='wpsl-country'>" + country + "</p>" + moreInfo + "</div>" + distance + "<a class='wpsl-directions' " + url.target + " href='" + url.src + "'>" + wpslLabels.directions + "</a></li>";
+	html = "<li data-store-id='" + id + "'><div><p>" + storeImg + "<strong>" + store + "</strong><span class='wpsl-street'>" + address + "</span>" + address2 + city + ", " + state + " "/* + zip + "<span class='wpsl-country'>" + country */+ "</p>" + moreInfo + "</div>" + /*distance + "<a class='wpsl-directions' " + url.target + " href='" + url.src + "'>" + wpslLabels.directions + "</a>*/"</li>";
 
 	return html;
 }

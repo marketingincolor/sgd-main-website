@@ -25,8 +25,8 @@ if ( ! function_exists( 'devtheme_setup' ) ) :
         // Enable support for Post Thumbnails, and declare two sizes.
         add_theme_support( 'post-thumbnails' );
         //set_post_thumbnail_size( 280, 270 );
-        add_image_size( 'main-thumb', 280, 270, true );
-        add_image_size( 'related-thumb', 180, 124, true );
+        add_image_size( 'news-thumb', 294, 232, true );
+        add_image_size( 'sidebar-thumb', 106, 98, true );
         // This theme uses wp_nav_menu() in two locations.
         register_nav_menus( array(
             'primary'   =>  'Header menu',
@@ -48,7 +48,7 @@ endif;
 add_action( 'after_setup_theme', 'devtheme_setup' );
 require get_template_directory() . '/includes/foundation-wp-navwalker.php';
 
-//Initialize and Register sidebars for theme
+//Initialize and Register sidebar widget areas for theme
 function devtheme_widgets_init() {
     register_sidebar(array(
         'name' => __( 'Main Sidebar', 'devtheme' ),
@@ -86,69 +86,6 @@ function devtheme_scripts () {
 }
 add_action( 'wp_enqueue_scripts', 'devtheme_scripts' );
 
-//Create custom display for Social Media icons as grouped set, using 'hdr' or 'ftr' for location on page.
-function display_social_media_icons( $pagelocation ){
-    $custom_option = get_option('custom_option_name');
-    $location = ($pagelocation == 'header' ? 'hdr' : 'ftr');
-    echo '<div class="social-icons">';
-    echo '<a href="'.$custom_option['fb_link'].'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_fb"></a>&nbsp;';
-    echo '<a href="'.$custom_option['tw_link'].'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_tw.png"></a>&nbsp;';
-    echo '<a href="'.$custom_option['gp_link'].'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_yt.png"></a>&nbsp;';
-    echo '<a href="'.$custom_option['li_link'].'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_li.png"></a>';
-    echo '</div>';
-}
-add_action( 'social_icons', 'display_social_media_icons', 10, 1 );
-
-//Create custom display for Company Phone Number Call To Action using 'hdr' or 'ftr' for location on page.
-function display_cta_phone( $pagelocation ){
-    $custom_option = get_option('custom_option_name');
-    $location = ($pagelocation == 'header' ? 'hdr' : 'ftr');
-    echo '<div class="cta-phone">';
-    //echo '<span class="phone-'.$location.'-icon"></span>';
-    echo '<img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_pho.png"></a>';
-    echo '<span class="phone-'.$location.'">'.$custom_option['ph_info'].'</span>';
-    echo '</div>';
-}
-add_action( 'cta_phone', 'display_cta_phone', 10, 1 );
-
-//Create custom display for Call To Action Panel using 'hdr' or 'ftr' for location on page.
-function display_cta_panel( $pagelocation ){
-    $location = ($pagelocation == 'header' ? 'hdr' : 'ftr');
-    echo '<br /><div class="cta-panel">';
-    echo '<div class="location-'.$location.'">Find a Location</div>';
-
-    if ($pagelocation == 'header') { echo '<div class="wpsl-detail-wtri"> </div>'; }
-
-    echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" value=""></div>';
-
-    if ($pagelocation == 'header') { echo '<div class="wpsl-detail-ytri"> </div>'; }
-
-    echo '<div class="wpsl-button-'.$location.'"><input type="submit" id="wpsl-search-button-'.$location.'" value=""></div>';
-    if ($pagelocation == 'header') {
-        require get_template_directory() . '/includes/pdi-form.php';
-    }
-    echo '</div>';
-}
-add_action( 'cta_panel', 'display_cta_panel', 10, 1 );
-
-//Create custom display for Display area links
-function display_area_dealer_links() {
-    echo '...';
-}
-add_action( 'sm_dlr_text', 'display_area_dealer_links', 10 );
-
-//Create custom display for Mobile Adverts.
-function display_mobile_advert_insert( $pagelocation ){
-
-    if ($pagelocation == '1') {
-        echo '<span class="mob-adv"><h5>Slot 1 Adverts</h5></span>';
-    }
-    elseif ($pagelocation == '2') {
-        echo '<span class="mob-adv"><h5>Slot 2 Adverts</h5></span>';
-    }
-}
-add_action( 'mobile_advert_insert', 'display_mobile_advert_insert', 10, 1 );
-
 // Alter length of the Excerpt.
 function custom_excerpt_length( $length ) {
     return 40;
@@ -161,16 +98,128 @@ function new_excerpt_more( $more ) {
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
-// Add Custom Shortcodes
-function insert_inspection_request() {
-    return '<h6><a href=""><i>Request a FREE property damage inspection today</i></a> for your home or business</h6>';
-}
-add_shortcode('inspect-request', 'insert_inspection_request');
-
 //Enable Shortcodes in Widgets
 add_filter( 'widget_text', 'shortcode_unautop');
 add_filter( 'widget_text', 'do_shortcode');
 
+// Add Custom Shortcodes
+// Shortcode for [inspect-request]
+function insert_inspection_request() {
+    return '<h6><a href="'. home_url() .'/inspection-request"><i>Request a FREE property damage inspection today for your home or business</i></a></h6>';
+}
+add_shortcode('inspect-request', 'insert_inspection_request');
+
+// Shortcode for [job-listing number="10" location="Apex+NC"]
+function insert_job_listing( $atts ) {
+    $options = shortcode_atts( array(
+        'number' => '10',
+        'location' => ''
+    ), $atts );
+    return '
+    <script type="text/javascript">
+    <!--
+    indeed_jobroll_title = \'Storm Guard Restoration Jobs\';
+    indeed_jobroll_background_color = "#FFFFFF";
+    indeed_jobroll_width = "100%";
+    indeed_jobroll_link_color = "#000000";
+    //-->
+    </script>
+    <script type="text/javascript" src="http://www.indeed.com/jobroll?q=Storm+Guard+Restoration&l='.$options['location'].'&limit='.$options['number'].'">
+    </script>
+    <noscript><a href="http://www.indeed.com/">Jobs</a> by Indeed</noscript>
+    ';
+}
+add_shortcode('job-listing', 'insert_job_listing');
+
+//Create custom display for Social Media icons as grouped set, using 'hdr' or 'ftr' for location on page.
+function display_social_media_icons( $page_location ){
+    global $post;
+    //first we pull the official corporate values from the custom options set in the theme admin
+    $sm_default_option = get_option('custom_option_name');
+    $location = ($page_location == 'header' ? 'hdr' : 'ftr');
+    $sm_fb_link = ( get_user_meta( $post->post_author, 'sm_fb', true ) ? get_user_meta( $post->post_author, 'sm_fb', true ) : $sm_default_option['fb_link'] );
+    $sm_tw_link = ( get_user_meta( $post->post_author, 'sm_tw', true )  ? get_user_meta( $post->post_author, 'sm_tw', true ) : $sm_default_option['tw_link'] );
+    $sm_gp_link = ( get_user_meta( $post->post_author, 'sm_gp', true )  ? get_user_meta( $post->post_author, 'sm_gp', true ) : $sm_default_option['gp_link'] );
+    $sm_li_link = ( get_user_meta( $post->post_author, 'sm_li', true )  ? get_user_meta( $post->post_author, 'sm_li', true ) : $sm_default_option['li_link'] );
+    echo '<div class="social-icons">';
+    if ( $sm_default_option['fb_link'] ) {
+        echo '<a href="'.$sm_fb_link.'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_fb.png"></a>&nbsp;';
+    }
+    if ( $sm_default_option['tw_link'] ) {
+        echo '<a href="'.$sm_tw_link.'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_tw.png"></a>&nbsp;';
+    }
+    if ( $sm_default_option['gp_link'] ) {
+        echo '<a href="'.$sm_gp_link.'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_yt.png"></a>&nbsp;';
+    }
+    if ( $sm_default_option['li_link'] ) {
+        echo '<a href="'.$sm_li_link.'" target="_blank"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_li.png"></a>';
+    }
+    echo '</div>';
+}
+add_action( 'social_icons', 'display_social_media_icons', 10, 1 );
+
+//Create custom display for Company Phone Number Call To Action using 'hdr' or 'ftr' for location on page.
+function display_cta_phone( $page_location ){
+    global $post;
+    $location = ($page_location == 'footer' ? 'ftr' : 'hdr');
+    $custom_option = get_option('custom_option_name');
+    if ( get_user_meta( $post->post_author, 'phone', true ) ) :
+        $location_phone = get_user_meta( $post->post_author, 'phone', true );
+    else :
+        $location_phone = $custom_option['ph_info'];
+    endif;
+    echo '<div class="cta-phone">';
+    //echo '<span class="phone-'.$location.'-icon"></span>';
+    echo '<a href="tel://'.$location_phone.'"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_'.$location.'_ico_pho.png"></a>';
+    echo '<div class="phone-'.$location.'">'.$location_phone.'</div>';
+    echo '</div>';
+}
+add_action( 'cta_phone', 'display_cta_phone', 10, 1 );
+
+//Create custom display for Call To Action Panel using 'hdr' or 'ftr' for location on page.
+function display_cta_panel( $page_location ){
+    global $post;
+    //$pt_switch = (get_post_type( $post ) != 'location' ? ' hide-for-small-up' : '');
+    $location = ($page_location == 'footer' ? 'ftr' : 'hdr');
+    echo '<div class="cta-panel">';
+    echo '<div class="'.$location.'-location-link hide"><a href="'.home_url().'/'.$_COOKIE["fm-location"].'">Back to '.$_COOKIE["fm-name"].' Page &raquo;</a></div>';
+    echo '<div class="location-form '.$location.'-location-form"><form>';
+    if ($page_location == 'footer') { echo '<div class="wpsl-detail-icomap"> </div>'; }
+    echo '<div class="location-'.$location.'">Find a Location</div>';
+    if ($page_location == 'mobile') { echo '<br />'; }
+    if ($page_location != 'footer') { echo '<div class="wpsl-detail-wtri"> </div>'; }
+    echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" value="" placeholder=" Enter Zip Code"></div>';
+    if ($page_location != 'footer') { echo '<div class="wpsl-detail-ytri"> </div>'; }
+    echo '<div class="wpsl-button-'.$location.'"><input type="submit" id="wpsl-search-button-'.$location.'" value=""></div>';
+    echo '</form></div>';
+    if ($page_location == 'header') {
+        require get_template_directory() . '/includes/pdi-form.php';
+    }
+    echo '</div>';
+}
+add_action( 'cta_panel', 'display_cta_panel', 10, 1 );
+
+//Create custom display for Services list links by location
+function show_services_list( $list_location ) {
+    echo '<div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">';
+    $main_location = array( 'Roofing', 'Gutters', 'Siding', 'Painting', 'Windows', 'Emergency Tarping' );
+    if ( $list_location == 'main' ) {
+        echo '<ul class="service-icons small-block-grid-2">';
+        echo '<li><a href="services/residential-services" class="service-icons-box" id="icn-roof"><span class="service-icons-text">Roofing</span></a></li>';
+        echo '<li><a href="services/residential-services" class="service-icons-box" id="icn-gutter"><span class="service-icons-text">Gutters</span></a></li>';
+        echo '<li><a href="services/residential-services" class="service-icons-box" id="icn-side"><span class="service-icons-text">Siding</span></a></li>';
+        echo '<li><a href="services/residential-services" class="service-icons-box" id="icn-paint"><span class="service-icons-text">Paint</span></a></li>';
+        echo '<li><a href="services/residential-services" class="service-icons-box" id="icn-wind"><span class="service-icons-text">Windows</span></a></li>';
+        echo '<li><a href="services/residential-services" class="service-icons-box" id="icn-tarp"><span class="service-icons-text">Emergency Tarping</span></a></li>';
+        echo '</ul>';
+    }
+    echo '</div>';
+}
+add_action( 'show_serv_list', 'show_services_list', 10, 1 );
+
+// Add EXCERPT to Testimonial Plugin
+add_action('init', 'add_testimonial_excerpt');
+function add_testimonial_excerpt() { add_post_type_support( 'testimonial', 'excerpt' ); }
 //Add custom display for Testimonial Plugin
 function render_testimonial () {
     if( class_exists( 'WP_Testimonial' ) ) {
@@ -181,15 +230,17 @@ function render_testimonial () {
         ) ) ) {
             $testimonial = new WP_Testimonial( array_pop( $testimonial )->ID );
             echo '<div class="featured-testimonial">';
-            echo '<h5>Featured Testimonial</h5>';
-                    echo '<div class="single-testimonial">';
-                         echo $testimonial->post_content;
-                    echo '</div>';
+            echo '<h5>Featured Testimonial</h5><img src="'. get_template_directory_uri(). '/img/sgd_grfx_sid_ico_testm.png">';
+                echo '<div class="single-testimonial">';
+                    echo '<div class="st-quote">'.$testimonial->post_excerpt.'</div>';
+                    echo '<div class="st-name">';
                     if( !empty( $testimonial->company ) ):
-                        echo $testimonial->client .', '. $testimonial->company;
+                        echo $testimonial->client .'<br />'. $testimonial->company;
                     else:
                         echo $testimonial->client;
                     endif;
+                    echo '</div>';
+                echo '</div>';
             echo '</div>';
         }
     }
@@ -197,9 +248,211 @@ function render_testimonial () {
 add_action( 'show_custom_testimonial', 'render_testimonial', 10 );
 
 
+
+
+
+
+
+
+//TO TEST DISPLAY VERSION BELOW, SWAP ADD_FILTER IN WORKING VERSION FOLLOWING -------------------------------
+//add_filter('post_gallery', 'my_post_gallery', 10, 2);
+function my_post_gallery($output, $attr) {
+    global $post;
+
+    if (isset($attr['orderby'])) {
+        $attr['orderby'] = sanitize_sql_orderby($attr['orderby']);
+        if (!$attr['orderby'])
+            unset($attr['orderby']);
+    }
+
+    extract(shortcode_atts(array(
+        'order' => 'ASC',
+        'orderby' => 'menu_order ID',
+        'id' => $post->ID,
+        'itemtag' => 'dl',
+        'icontag' => 'dt',
+        'captiontag' => 'dd',
+        'columns' => 3,
+        'size' => 'thumbnail',
+        'include' => '',
+        'exclude' => ''
+    ), $attr));
+
+    $id = intval($id);
+    if ('RAND' == $order) $orderby = 'none';
+
+    if (!empty($include)) {
+        $include = preg_replace('/[^0-9,]+/', '', $include);
+        $_attachments = get_posts(array('include' => $include, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby));
+
+        $attachments = array();
+        foreach ($_attachments as $key => $val) {
+            $attachments[$val->ID] = $_attachments[$key];
+        }
+    }
+
+    if (empty($attachments)) return '';
+    $output .= "<ul data-orbit>\n";
+    foreach ($attachments as $id => $attachment) {
+        $img = wp_get_attachment_image_src($id, 'full');
+        $output .= "<li>\n";
+        $output .= "<img src=\"{$img[0]}\" width=\"{$img[1]}\" height=\"{$img[2]}\" alt=\"\" />\n";
+        $output .= "</li>\n";
+    }
+    $output .= "</ul>\n";
+
+    return $output;
+}
+
+//ORIGINAL WORKING VERSION BELOW -------------------------------
+//Add custom Post Gallery for Sidebar
+function custom_post_gallery( $output, $attr) {
+    global $post, $wp_locale;
+
+    static $instance = 0;
+    $instance++;
+
+    $order = '';
+    $orderby = '';
+    $id = '';
+    $itemtag = '';
+    $icontag = '';
+    $captiontag = '';
+    $columns = '';
+    $size = '';
+    $include = '';
+    $exclude = '';
+    $type = '';
+    $customclass = '';
+
+    // We're trusting author input, so let's at least make sure it looks like a valid orderby statement
+    if ( isset( $attr['orderby'] ) ) {
+        $attr['orderby'] = sanitize_sql_orderby( $attr['orderby'] );
+        if ( !$attr['orderby'] )
+            unset( $attr['orderby'] );
+    }
+
+    extract(shortcode_atts(array(
+        'order'      => 'ASC',
+        'orderby'    => 'menu_order ID',
+        'id'         => $post->ID,
+        'itemtag'    => 'dl',
+        'icontag'    => 'dt',
+        'captiontag' => 'dd',
+        'columns'    => 3,
+        'size'       => 'thumbnail',
+        'include'    => '',
+        'exclude'    => '',
+        'type'       => ''
+    ), $attr));
+
+    $id = intval($id);
+    if ( 'RAND' == $order )
+        $orderby = 'none';
+
+    if ( !empty($include) ) {
+        $include = preg_replace( '/[^0-9,]+/', '', $include );
+        $_attachments = get_posts( array('include' => $include, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby) );
+
+        $attachments = array();
+        foreach ( $_attachments as $key => $val ) {
+            $attachments[$val->ID] = $_attachments[$key];
+        }
+    } elseif ( !empty($exclude) ) {
+        $exclude = preg_replace( '/[^0-9,]+/', '', $exclude );
+        $attachments = get_children( array('post_parent' => $id, 'exclude' => $exclude, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby) );
+    } else {
+        $attachments = get_children( array('post_parent' => $id, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby) );
+    }
+
+    if ( empty($attachments) )
+        return '';
+
+    if ( is_feed() ) {
+        $output = "\n";
+        foreach ( $attachments as $att_id => $attachment )
+            $output .= wp_get_attachment_link($att_id, $size, true) . "\n";
+        return $output;
+    }
+
+    if ($type == 'custom') {
+        $itemtag = 'div';
+        $icontag = 'div';
+        $captiontag = 'div';
+        $columns = 0;
+        $customclass = 'slider';
+    }
+    $itemtag = tag_escape($itemtag);
+    $captiontag = tag_escape($captiontag);
+    $columns = intval($columns);
+    $itemwidth = $columns > 0 ? floor(100/$columns) : 100;
+    $float = is_rtl() ? 'right' : 'left';
+    $selector = "gallery-{$instance}";
+
+    $output = apply_filters('gallery_style', "
+        <style type='text/css'>
+            #{$selector} {
+                margin: auto;
+            }
+            #{$selector} .gallery-item {
+                float: {$float};
+                margin-top: 5px;
+                text-align: center;
+                width: {$itemwidth}%;           }
+            #{$selector} img {
+                border: 0px solid #cfcfcf;
+            }
+            #{$selector} .gallery-caption {
+                margin-left: 0;
+            }
+        </style>
+        <div id='$selector' class='$customclass gallery galleryid-{$id} gallery-{$type}'>");
+
+    $i = 0;
+    foreach ( $attachments as $id => $attachment ) {
+        $link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false);
+
+        $output .= "<{$itemtag} class='gallery-item'>";
+        /*$output .= "
+            <{$icontag} class='gallery-icon'>
+                $link
+            </{$icontag}>";*/
+
+        /*if ( $captiontag && trim($attachment->post_excerpt) ) {
+            $output .= "
+                <{$captiontag} class='gallery-caption'>
+                " . wptexturize($attachment->post_excerpt) . "
+                </{$captiontag}>";
+        }*/
+
+        $output .= "
+        <{$icontag} class='gallery-icon'>
+            <a href='#' data-reveal-id='modal-$id'>" . wp_get_attachment_image($id, $size) . "</a>
+        </{$icontag}>";
+
+        if ( $captiontag ) {
+            $output .= "
+                <{$captiontag} id='modal-$id' class='reveal-modal medium' data-reveal>
+                <br />". wp_get_attachment_image($id, 'full') ."<a class='close-reveal-modal'>&#215;</a>
+                </{$captiontag}>";
+        }
+
+        $output .= "</{$itemtag}>";
+        if ( $columns > 0 && ++$i % $columns == 0 )
+            $output .= '<br style="clear: both;" />';
+    }
+    $output .= "</div>\n";
+
+    return $output;
+}
+add_filter( 'post_gallery', 'custom_post_gallery', 10, 2 );
+//add_filter('post_gallery', 'my_post_gallery', 10, 2);
+
+
+
+
+
 // Add Column Classes to Display Posts Shortcodes
-// @author Bill Erickson
-// @link http://www.billerickson.net/code/add-column-classes-to-display-posts-shortcode
 function be_display_post_class( $classes, $post, $listing, $atts ) {
     if( !isset( $atts['columns'] ) )
         return $classes;

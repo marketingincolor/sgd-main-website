@@ -4,10 +4,18 @@
  *
  */
 ?>
-
-<div class="inspection-form"><a href="#" class="button dropdown" data-dropdown="if-drop" data-options="">Free Property Damage Inspection</a></div>
-
-<div id="if-drop" data-dropdown-content class="small inform-dropdown content">
-    <h5>Small Example (200px)</h5>
-    <?php echo do_shortcode('[contact-form-7 id="62" title="Contact form 1"]');?>
-</div><!-- #if-drop -->
+<div class="inspection-form">
+    <div class="wpsl-detail-rtri"></div>
+    <a href="#" class="button dropdown" data-dropdown="if-drop" data-options="is_hover:true">Free Property Damage Inspection</a>
+</div>
+<div id="if-drop" data-dropdown-content class="inform-dropdown content">
+    <?php
+    $the_post_slug = $post->post_name;
+    if ( get_post_type( $post ) == 'location' ) :
+        $the_location = $the_post_slug;
+    else :
+        $the_location = '';
+    endif;
+    echo do_shortcode('[contact-form-7 title="Inspection Request SHORT '.$the_location.'"]');
+    ?>
+</div>
