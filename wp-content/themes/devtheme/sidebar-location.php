@@ -7,7 +7,7 @@
  */
 ?>
 <br />
-<div id="location-meta-sidebar" class="large-4 show-for-large-up columns">
+<div id="location-meta-sidebar" class="small-12 large-4 columns">
     <div id="sidebar" role="secondary" class="small-12 columns">
         <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
             <div class="textwidget">
@@ -77,7 +77,7 @@
     </div>
 </div>
 
-<div id="outer-sidebar" class="large-4 medium-4 show-for-medium-up columns">
+<div id="outer-sidebar" class="small-12 large-4 columns">
     <div id="sidebar" role="secondary" class="small-12 columns">
         <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
             <!--<div class="textwidget">

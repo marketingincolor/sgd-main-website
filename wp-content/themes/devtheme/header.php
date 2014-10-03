@@ -190,17 +190,23 @@ if ( is_front_page() ) {
                 </div>
             </div>
         </div>
-
-
-
+        <?php if (is_front_page()) : ?>
+        <div style="width:100%; text-align:center;">
+            <div class="mobile-service-slider show-for-small-only" style="width:70%; left:15%;">
+                <div><a href="services/residential-services" class="service-icons-box" id="icn-roof"><span class="service-icons-text">Roofing</span></a></div>
+                <div><a href="services/residential-services" class="service-icons-box" id="icn-gutter"><span class="service-icons-text">Gutters</span></a></div>
+                <div><a href="services/residential-services" class="service-icons-box" id="icn-side"><span class="service-icons-text">Siding</span></a></div>
+                <div><a href="services/residential-services" class="service-icons-box" id="icn-paint"><span class="service-icons-text">Paint</span></a></div>
+                <div><a href="services/residential-services" class="service-icons-box" id="icn-wind"><span class="service-icons-text">Windows</span></a></div>
+                <div><a href="services/residential-services" class="service-icons-box" id="icn-tarp"><span class="service-icons-text">Emergency Tarping</span></a></div>
+            </div>
+        </div>
+        <?php endif; ?>
         <?php
         if ( is_front_page() ) {
             do_action('social_icons', 'header');
         } ?>
-
     </div>
-
-
 
 
 </div>

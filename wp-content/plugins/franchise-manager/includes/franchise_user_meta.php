@@ -1,3 +1,8 @@
+<?php
+$caps = get_user_meta($user->ID, 'wp_capabilities', true);
+$roles = array_keys((array)$caps);
+if( $roles[0] == 'franchisee' ) : ?>
+
 <h3>Franchise Location Information</h3>
 <table class="form-table">
     <tr>
@@ -49,7 +54,13 @@
             <span class="description">(e.g., 555-123-4567)</span>
         </td>
     </tr>
-
+    <tr>
+        <th><label for="zone">Territory</label></th>
+        <td>
+            <textarea rows="6" cols="40" name="zone" id="zone" class="regular-text"><?php echo esc_attr( get_the_author_meta( 'zone', $user->ID ) ); ?></textarea><br />
+            <span class="description">(List all ZIP Codes in Territory as comma separated list with no spaces - e.g., 10101,10102,10103,10104,10105)</span>
+        </td>
+    </tr>
     <tr>
         <th><label for="sm_fb">Facebook</label></th>
         <td>
@@ -81,15 +92,16 @@
     <tr>
         <th><label for="st_an">Standard Analytics</label></th>
         <td>
-            <textarea rows="10" cols="40" name="st_an" id="st_an" class="regular-text"><?php echo esc_attr( get_the_author_meta( 'st_an', $user->ID ) ); ?></textarea><br />
+            <textarea rows="6" cols="40" name="st_an" id="st_an" class="regular-text"><?php echo esc_attr( get_the_author_meta( 'st_an', $user->ID ) ); ?></textarea><br />
             <span class="description">(May be entire code string from Analytics provider)</span>
         </td>
     </tr>
     <tr>
         <th><label for="sp_an">Special Analytics</label></th>
         <td>
-            <textarea rows="10" cols="40" name="sp_an" id="sp_an" class="regular-text"><?php echo esc_attr( get_the_author_meta( 'sp_an', $user->ID ) ); ?></textarea><br />
+            <textarea rows="6" cols="40" name="sp_an" id="sp_an" class="regular-text"><?php echo esc_attr( get_the_author_meta( 'sp_an', $user->ID ) ); ?></textarea><br />
             <span class="description">(May be entire code string from Analytics provider)</span>
         </td>
     </tr>
 </table>
+<?php endif; ?>

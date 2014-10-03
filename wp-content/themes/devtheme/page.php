@@ -19,9 +19,9 @@ if ( is_front_page() ) :
 else :
     $theclass = "small-12 large-8 columns";
 endif;?>
-    <div class="<?php echo $theclass ?>">
-    <div id="primary" class="site-content">
 
+<div class="<?php echo $theclass ?>">
+    <div id="primary" class="site-content">
         <?php // Start the Loop
         while ( have_posts() ) : the_post();
             get_template_part( 'content', 'page' );
@@ -30,7 +30,6 @@ endif;?>
             //}
         endwhile;
         ?>
-
     </div><!-- #primary -->
 </div>
 

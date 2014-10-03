@@ -42,7 +42,7 @@
             </ul>
 
             <div id="mobile-footer" class="small-12 show-for-small-down columns">
-                <h5><a href="#pagetop">Back to Top</a></h5>
+                <h5 style="text-align:center; margin-bottom:15px !important;"><a href="#pagetop" style="color:#363636;">Back to Top</a></h5>
                 <?php require get_template_directory() . '/includes/icon-links.php'; ?>
             </div>
 
@@ -78,10 +78,10 @@
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.orbit.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.accordion.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.topbar.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.dropdown.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.orbit.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.reveal.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.clearing.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.equalizer.js"></script>
@@ -98,6 +98,11 @@
             slidesToScroll: 1,
             //slide: "li",
             draggable: false,
+            autoplay: true,
+            autoplaySpeed: 5000
+        });
+        $('.mobile-service-slider').slick({
+            dots: true,
             autoplay: true,
             autoplaySpeed: 5000
         });

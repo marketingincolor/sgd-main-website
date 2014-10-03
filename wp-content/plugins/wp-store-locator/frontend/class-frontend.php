@@ -53,7 +53,7 @@ if ( !class_exists( 'WPSL_Frontend' ) ) {
 			$css  = '<style>' . "\r\n";
 			
             if ( ( $this->settings['template_id'] == '1' ) && ( $this->settings['store_below_scroll'] == '1' ) ) {
-                $css .= "#wpsl-gmap {height:" . esc_attr( $this->settings['height'] ) . "px !important;}" . "\r\n"; 
+                $css .= "#wpsl-gmap {height:" . esc_attr( $this->settings['height'] ) . "px !important;}" . "\r\n";
                 $css .= "#wpsl-stores, #wpsl-direction-details {height:auto !important;}";
             } else {
                 $css .= "#wpsl-stores, #wpsl-direction-details, #wpsl-gmap {height:" . esc_attr( $this->settings['height'] ) . "px !important;}" . "\r\n";  

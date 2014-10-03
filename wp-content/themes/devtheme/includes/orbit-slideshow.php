@@ -12,7 +12,7 @@ $orbit_options = 'animation:fade;
 ?>
 <ul class="header-slides-orbit" data-orbit data-options="<?php echo $orbit_options; ?>">
     <li>
-        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_01.png" alt="slide 1" />
+        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_01.jpg" alt="slide 1" />
         <div class="orbit-caption">
             <div class="orbit-caption-text">
                 Do you know if your home or property<br />
@@ -21,7 +21,7 @@ $orbit_options = 'animation:fade;
         </div>
     </li>
     <li>
-        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_02.png" alt="slide 2" />
+        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_02.jpg" alt="slide 2" />
         <div class="orbit-caption">
             <div class="orbit-caption-text">
                 Storm Guard inspects your property for<br />
@@ -31,7 +31,7 @@ $orbit_options = 'animation:fade;
         </div>
     </li>
     <li>
-        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_03.png" alt="slide 3" />
+        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_03.jpg" alt="slide 3" />
         <div class="orbit-caption">
             <div class="orbit-caption-text">
                 With our no-hassle approach, we<br />
@@ -41,7 +41,7 @@ $orbit_options = 'animation:fade;
         </div>
     </li>
     <li>
-        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_04.png" alt="slide 4" />
+        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_04.jpg" alt="slide 4" />
         <div class="orbit-caption">
             <div class="orbit-caption-text">
                 We specialize in roofing, siding,<br />
@@ -51,7 +51,7 @@ $orbit_options = 'animation:fade;
         </div>
     </li>
     <li>
-        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_03.png" alt="slide 5" />
+        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_05.jpg" alt="slide 5" />
         <div class="orbit-caption">
             <div class="orbit-caption-text">
                 Damage may reveal itself months, or<br />
@@ -62,7 +62,7 @@ $orbit_options = 'animation:fade;
         </div>
     </li>
     <li>
-        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_03.png" alt="slide 6" />
+        <img src="./wp-content/themes/devtheme/img/sgd_grfx_slide_06.jpg" alt="slide 6" />
         <div class="orbit-caption">
             <div class="orbit-caption-text">
                 Looking for a great business opportunity?<br />

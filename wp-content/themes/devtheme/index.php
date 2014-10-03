@@ -21,6 +21,7 @@ if ( is_front_page() ) :
 else :
     $theclass = "small-12 large-8 show-for-medium-up columns";
 endif;?>
+
 <div class="<?php echo $theclass ?>">
     <div id="primary" class="site-content">
         <?php // Start the Loop
@@ -37,19 +38,10 @@ endif;?>
     </div><!-- #primary -->
 </div>
 
-<!-- Start Mobile Only Body -->
-<div id="mobile-main" class="small columns show-for-small-only">
-    MOBILE ONLY CONTENT
-</div>
-<div id="mobile-body" class="small columns show-for-small-only">
-    MOBILE ONLY CONTENT
-</div>
-<!-- End Mobile Only Body -->
-
 <?php get_sidebar();?>
 
 <?php if ( is_front_page() ) :
     require get_template_directory() . '/includes/video-showcase.php';
 endif;?>
-INDEX PAGE
+
 <?php get_footer();?>

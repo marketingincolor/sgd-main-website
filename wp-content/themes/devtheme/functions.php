@@ -183,15 +183,28 @@ function display_cta_panel( $page_location ){
     $location = ($page_location == 'footer' ? 'ftr' : 'hdr');
     echo '<div class="cta-panel">';
     echo '<div class="'.$location.'-location-link hide"><a href="'.home_url().'/'.$_COOKIE["fm-location"].'">Back to '.$_COOKIE["fm-name"].' Page &raquo;</a></div>';
-    echo '<div class="location-form '.$location.'-location-form"><form>';
+
+    //--------------------START REVISED-------------------//
+    //echo '<div class="location-form '.$location.'-location-form"><form>';
+    echo '<div class="location-form '.$location.'-location-form"><form method="post" action="">';
+    //--------------------END REVISED-------------------//
+
     if ($page_location == 'footer') { echo '<div class="wpsl-detail-icomap"> </div>'; }
     echo '<div class="location-'.$location.'">Find a Location</div>';
     if ($page_location == 'mobile') { echo '<br />'; }
+
     if ($page_location != 'footer') { echo '<div class="wpsl-detail-wtri"> </div>'; }
-    echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" value="" placeholder=" Enter Zip Code"></div>';
+
+    //--------------------START REVISED-------------------//
+    //echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" value="" placeholder=" Enter Zip Code"></div>';
+    echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" name="zip-code-lookup" value="" placeholder=" Enter Zip Code" /></div>';
+    //--------------------END REVISED-------------------//
+
     if ($page_location != 'footer') { echo '<div class="wpsl-detail-ytri"> </div>'; }
-    echo '<div class="wpsl-button-'.$location.'"><input type="submit" id="wpsl-search-button-'.$location.'" value=""></div>';
+
+    echo '<div class="wpsl-button-'.$location.'"><input type="submit" name="submit" id="wpsl-search-button-'.$location.'" value=""></div>';
     echo '</form></div>';
+
     if ($page_location == 'header') {
         require get_template_directory() . '/includes/pdi-form.php';
     }
@@ -217,9 +230,46 @@ function show_services_list( $list_location ) {
 }
 add_action( 'show_serv_list', 'show_services_list', 10, 1 );
 
+
+
+
+// Custom Action to lookup Territory/Zone info for Franchisee
+function fm_display_zone_franchise() {
+    if ( isset( $_POST['zip-code-lookup'] ) ) {
+        $submitted_zip = $_POST['zip-code-lookup'];
+        $args  = array(
+            'fields' => 'all',
+            'meta_query' => array(
+                array(
+                    'key' => 'zone',
+                    'value' => $submitted_zip,
+                    'compare' => 'LIKE'
+                )
+            ));
+        $locations = get_users($args);
+        foreach ( $locations as $location) :
+            $user_id = $location->user_url;
+        endforeach;
+        if ( isset($user_id) ) {
+            wp_redirect( $user_id ); exit;
+        } else {
+            wp_redirect( home_url().'/locations/?zip='.$submitted_zip.'' ); exit;
+        }
+    }
+}
+add_action( 'init', 'fm_display_zone_franchise', 10, 1);
+
+
+
+
+
+
 // Add EXCERPT to Testimonial Plugin
 add_action('init', 'add_testimonial_excerpt');
-function add_testimonial_excerpt() { add_post_type_support( 'testimonial', 'excerpt' ); }
+function add_testimonial_excerpt() {
+    add_post_type_support( 'testimonial', 'excerpt' );
+}
+
 //Add custom display for Testimonial Plugin
 function render_testimonial () {
     if( class_exists( 'WP_Testimonial' ) ) {

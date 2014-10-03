@@ -213,6 +213,7 @@ function fm_save_extra_profile_fields( $user_id ) {
     update_user_meta( $user_id, 'state', $_POST['state'] );
     update_user_meta( $user_id, 'zip', $_POST['zip'] );
     update_user_meta( $user_id, 'phone', $_POST['phone'] );
+    update_user_meta( $user_id, 'zone', $_POST['zone']);
     update_user_meta( $user_id, 'sm_fb', $_POST['sm_fb'] );
     update_user_meta( $user_id, 'sm_tw', $_POST['sm_tw'] );
     update_user_meta( $user_id, 'sm_gp', $_POST['sm_gp'] );

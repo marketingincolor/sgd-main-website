@@ -11,18 +11,19 @@
 <?php
 if ( is_front_page() ) :
     //$side_class = "large-5 medium-5 show-for-medium-up columns";
-    $side_class = "large-5 show-for-large-up columns";
+    $side_class = "large-5";
 else :
     //$side_class = "large-4 medium-4 show-for-medium-up columns";
-    $side_class = "large-4 show-for-large-up columns";
+    $side_class = "large-4";
 endif;?>
 
-
-<div id="outer-sidebar" class="<?php echo $side_class ?>">
+<div id="outer-sidebar" class="small-12 <?php echo $side_class ?> columns">
     <div id="sidebar" role="secondary" class="small-12 columns">
 
         <?php if ( is_front_page() ) : ?>
-            <?php do_action( 'show_serv_list', 'main' ); ?>
+            <div class="hide-for-small">
+                <?php do_action( 'show_serv_list', 'main' ); ?>
+            </div>
         <?php endif; ?>
 
         <?php if ( is_active_sidebar( 'sidebar-1' ) && !is_front_page() /*&& ! is_single()*/ ) : ?>
