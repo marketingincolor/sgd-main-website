@@ -7,6 +7,18 @@
  * @since Dev Blank 0.0
  */
 
+//SEO for BV
+//Please provide cloud_key, deployment_zone_id and product_id
+$location_code =  get_user_meta( $post->post_author, 'sp_an', true );
+require get_template_directory() . '/bvseosdk.php';
+$bv = new BV(array(
+    'deployment_zone_id' => 'Main_Site-en_US',
+    'product_id' => 'FAM-'.$location_code.'',
+    'cloud_key' => 'stormguard-600386d812047b30f21f583d302953e2',
+    'current_page_url' => get_permalink( $post->ID ) ,
+    'staging' => FALSE //REMOVE FOR LIVE, or set to FALSE
+));
+
 get_header(); ?>
     <div class="small-12 large-8 columns">
         <div id="primary" class="site-content">
@@ -49,18 +61,40 @@ get_header(); ?>
                     <div id="location-gallery" class="clearfix hide-for-small-down">
                         <h3 class="widget-title">Gallery</h3>
 
+                        <?php
+                        if ( function_exists( 'soliloquy' ) ) {
+                            soliloquy( 'demo-slider', 'slug' );
+                        }
+                        ?>
+
                         <?php if ( is_single()  ) : ?>
 
-                            <?php echo do_shortcode('[gallery size="news-thumb" link="file" ids="168,167,166,165,164" type="custom"]'); ?>
+                            <?php //echo do_shortcode('[gallery size="news-thumb" link="file" ids="168,167,166,165,164" type="custom"]'); ?>
                         <?php else : ?>
-                            <?php echo do_shortcode('[gallery for location]');?>
+                            <?php //echo do_shortcode('[gallery for location]');?>
                         <?php endif; ?>
                     </div>
-
+                    <div id="location-reviews">
+                        <?php
+                        //$location_code =  get_user_meta( $post->post_author, 'sp_an', true ) ? get_user_meta( $post->post_author, 'sp_an', true ) : '';
+                        //echo $location_code;
+                        ?>
+                    </div>
                 <?php endwhile; // end of the loop. ?>
 
             </div><!-- #content -->
         </div><!-- #primary -->
+
+        <?php //echo ( get_user_meta( $post->post_author, 'st_an', true ) ? get_user_meta( $post->post_author, 'st_an', true ) : ''); ?>
+        <?php //echo ( get_user_meta( $post->post_author, 'sp_an', true ) ? get_user_meta( $post->post_author, 'sp_an', true ) : ''); ?>
+        <hr><br />
+        <!-- Add BazaarVoice Content -->
+        <?php if ( get_user_meta( $post->post_author, 'sp_an', true ) ) :
+            //require get_template_directory() . '/includes/reviews-locations.php';
+        endif;?>
+        <!-- End BazaarVoice Content -->
+
+
     </div>
     <div id="mobile-single" class="small-12 show-for-small-only columns">
         <!--Mobile Singlepage Content-->
@@ -99,8 +133,5 @@ get_header(); ?>
     }
 } )( jQuery );
 </script>
-
-<?php echo ( get_user_meta( $post->post_author, 'st_an', true ) ? get_user_meta( $post->post_author, 'st_an', true ) : ''); ?>
-<?php echo ( get_user_meta( $post->post_author, 'sp_an', true ) ? get_user_meta( $post->post_author, 'sp_an', true ) : ''); ?>
 
 <?php get_footer(); ?>

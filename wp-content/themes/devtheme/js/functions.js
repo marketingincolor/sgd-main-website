@@ -6,7 +6,7 @@
  */
 ( function( $ ) {
     // Sets cookie for Franchise Manager and Location Finder Customizations
-    $(function () {
+    /*$(function () {
         var current = window.location.href.split('/');
         var part = current.pop() == '' ? current[current.length - 1] : current.pop();
         if (readCookie('fm-location')) {
@@ -40,7 +40,7 @@
     }
     function eraseCookie(name) {
         createCookie(name,'',-1);
-    }
+    }*/
 
 // zip code search (header)
     $(function (){

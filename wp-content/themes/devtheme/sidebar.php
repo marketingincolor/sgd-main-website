@@ -43,7 +43,7 @@ endif;?>
         <?php if ( is_front_page() ) : ?>
             <div id="optional-sidebar" class="optional-widget-area" role="complementary">
                 <h5>Gallery</h5>
-                <?php echo do_shortcode('[gallery size="news-thumb" link="file" ids="406,167,166,165,164" type="custom"]'); ?>
+                <?php echo do_shortcode('[soliloquy slug="demo-slider"]'); ?>
             </div>
         <?php endif; ?>
 

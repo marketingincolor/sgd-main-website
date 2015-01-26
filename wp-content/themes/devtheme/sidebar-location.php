@@ -68,10 +68,22 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <br /><br />
-            <div class="textwidget">
-                <p><a href="../careers"><img src="<?php echo get_template_directory_uri(); ?>/img/sgd_grfx_btn_loc_hire.png"></a></p>
-            </div>
+            <br />
+
+            <?php if ( get_user_meta( $post->post_author, 'sp_an', true ) ) :
+                $span = get_user_meta( $post->post_author, 'sp_an', true );
+                $slug = $span.'-aff';
+            endif;?>
+            <?php if ( $span == '003NC') { echo '<h5>Affiliations</h5>'; } ?>
+            <?php if ( function_exists( 'soliloquy' ) ) { soliloquy($slug, 'slug'); } ?>
+
+            <!-- Add BazaarVoice Content -->
+            <?php /*if ( get_user_meta( $post->post_author, 'sp_an', true ) ) :
+                require get_template_directory() . '/includes/summary-locations.php';
+            endif;*/?>
+            <!-- End BazaarVoice Content -->
+
+
             <br /><br />
         </div>
     </div>
@@ -149,10 +161,14 @@
                 <?php
                 //$news_category = term_exists(strtolower($user_info->user_login), 'category') ? strtolower($user_info->user_login) : 'news' ;
                 $news_category = term_exists($post->post_name, 'category') ? $post->post_name : 'news';
-                echo do_shortcode('[display-posts category="'.$news_category.'" image_size="thumbnail" include_excerpt="true"]');
+                echo do_shortcode('[display-posts category="'.$news_category.'" image_size="thumbnail" include_excerpt="true" posts_per_page="5"]');
                 ?>
+                <a href="http://www.stormguardrestoration.com/news">More Stories</a>
             </div>
-
+            <br />
+            <div class="textwidget">
+                <p><a href="../careers"><img src="<?php echo get_template_directory_uri(); ?>/img/sgd_grfx_btn_loc_hire.png"></a></p>
+            </div>
         </div>
 
     </div>

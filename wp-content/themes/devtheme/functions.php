@@ -77,6 +77,15 @@ function devtheme_widgets_init() {
         'before_title' => '<h5 class="widget-title">',
         'after_title' => '</h5>'
     ));
+    register_sidebar(array(
+        'name' => __('Locations Sidebar', 'devtheme' ),
+        'id' => 'sidebar-4',
+        'description' => __( 'Special sidebar content for Locations', 'devtheme' ),
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h5 class="widget-title">',
+        'after_title' => '</h5>'
+    ));
 }
 add_action( 'widgets_init', 'devtheme_widgets_init' );
 
@@ -304,59 +313,14 @@ add_action( 'show_custom_testimonial', 'render_testimonial', 10 );
 
 
 
-//TO TEST DISPLAY VERSION BELOW, SWAP ADD_FILTER IN WORKING VERSION FOLLOWING -------------------------------
-//add_filter('post_gallery', 'my_post_gallery', 10, 2);
-function my_post_gallery($output, $attr) {
-    global $post;
 
-    if (isset($attr['orderby'])) {
-        $attr['orderby'] = sanitize_sql_orderby($attr['orderby']);
-        if (!$attr['orderby'])
-            unset($attr['orderby']);
-    }
 
-    extract(shortcode_atts(array(
-        'order' => 'ASC',
-        'orderby' => 'menu_order ID',
-        'id' => $post->ID,
-        'itemtag' => 'dl',
-        'icontag' => 'dt',
-        'captiontag' => 'dd',
-        'columns' => 3,
-        'size' => 'thumbnail',
-        'include' => '',
-        'exclude' => ''
-    ), $attr));
 
-    $id = intval($id);
-    if ('RAND' == $order) $orderby = 'none';
 
-    if (!empty($include)) {
-        $include = preg_replace('/[^0-9,]+/', '', $include);
-        $_attachments = get_posts(array('include' => $include, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby));
 
-        $attachments = array();
-        foreach ($_attachments as $key => $val) {
-            $attachments[$val->ID] = $_attachments[$key];
-        }
-    }
 
-    if (empty($attachments)) return '';
-    $output .= "<ul data-orbit>\n";
-    foreach ($attachments as $id => $attachment) {
-        $img = wp_get_attachment_image_src($id, 'full');
-        $output .= "<li>\n";
-        $output .= "<img src=\"{$img[0]}\" width=\"{$img[1]}\" height=\"{$img[2]}\" alt=\"\" />\n";
-        $output .= "</li>\n";
-    }
-    $output .= "</ul>\n";
 
-    return $output;
-}
-
-//ORIGINAL WORKING VERSION BELOW -------------------------------
-//Add custom Post Gallery for Sidebar
-function custom_post_gallery( $output, $attr) {
+function super_custom_post_gallery( $output, $attr) {
     global $post, $wp_locale;
 
     static $instance = 0;
@@ -367,7 +331,6 @@ function custom_post_gallery( $output, $attr) {
     $id = '';
     $itemtag = '';
     $icontag = '';
-    $captiontag = '';
     $columns = '';
     $size = '';
     $include = '';
@@ -428,6 +391,186 @@ function custom_post_gallery( $output, $attr) {
     if ($type == 'custom') {
         $itemtag = 'div';
         $icontag = 'div';
+        $columns = 0;
+        $customclass = 'slider';
+        //}
+        $itemtag = tag_escape($itemtag);
+        $icontag = tag_escape($icontag);
+        $columns = intval($columns);
+        $itemwidth = $columns > 0 ? floor(100 / $columns) : 100;
+        $float = is_rtl() ? 'right' : 'left';
+        $selector = "gallery-{$instance}";
+
+        $output = apply_filters('gallery_style', "
+        <style type='text/css'>
+            #{$selector} {
+                margin: auto;
+            }
+            #{$selector} .gallery-item {
+                float: {$float};
+                margin-top: 5px;
+                text-align: center;
+                width: {$itemwidth}%;
+            }
+            #{$selector} img {
+                border: 0px solid #cfcfcf;
+            }
+            #{$selector} .gallery-caption {
+                margin-left: 0;
+            }
+        </style>
+    <div id='$selector' class='$customclass gallery galleryid-{$id} gallery-{$type}'>");
+
+        $i = 0;
+        foreach ($attachments as $id => $attachment) {
+            //$link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false);
+            $img = wp_get_attachment_image_src($id, 'full');
+            $output .= "<{$itemtag} class='gallery-item'>";
+            $output .= "
+                <{$icontag} class='gallery-icon'>
+                    <a href='{$img[0]}' class='lightbox_trigger'>" . wp_get_attachment_image($id, 'news-thumb') . "</a>
+                </{$icontag}>";
+            $output .= "</{$itemtag}>";
+            if ($columns > 0 && ++$i % $columns == 0)
+                $output .= '<br style="clear: both;" />';
+        }
+        $output .= "</div>\n";
+        return $output;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ORIGINAL WORKING VERSION BELOW -------------------------------
+//Add custom Post Gallery for Sidebar
+function custom_post_gallery( $output, $attr)
+{
+    global $post, $wp_locale;
+
+    static $instance = 0;
+    $instance++;
+
+    $order = '';
+    $orderby = '';
+    $id = '';
+    $itemtag = '';
+    $icontag = '';
+    $captiontag = '';
+    $columns = '';
+    $size = '';
+    $include = '';
+    $exclude = '';
+    $type = '';
+    $customclass = '';
+
+    // We're trusting author input, so let's at least make sure it looks like a valid orderby statement
+    if (isset($attr['orderby'])) {
+        $attr['orderby'] = sanitize_sql_orderby($attr['orderby']);
+        if (!$attr['orderby'])
+            unset($attr['orderby']);
+    }
+
+    extract(shortcode_atts(array(
+        'order' => 'ASC',
+        'orderby' => 'menu_order ID',
+        'id' => $post->ID,
+        'itemtag' => 'dl',
+        'icontag' => 'dt',
+        'captiontag' => 'dd',
+        'columns' => 3,
+        'size' => 'thumbnail',
+        'include' => '',
+        'exclude' => '',
+        'type' => ''
+    ), $attr));
+
+    $id = intval($id);
+    if ('RAND' == $order)
+        $orderby = 'none';
+
+    if (!empty($include)) {
+        $include = preg_replace('/[^0-9,]+/', '', $include);
+        $_attachments = get_posts(array('include' => $include, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby));
+
+        $attachments = array();
+        foreach ($_attachments as $key => $val) {
+            $attachments[$val->ID] = $_attachments[$key];
+        }
+    } elseif (!empty($exclude)) {
+        $exclude = preg_replace('/[^0-9,]+/', '', $exclude);
+        $attachments = get_children(array('post_parent' => $id, 'exclude' => $exclude, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby));
+    } else {
+        $attachments = get_children(array('post_parent' => $id, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby));
+    }
+
+    if (empty($attachments))
+        return '';
+
+    if (is_feed()) {
+        $output = "\n";
+        foreach ($attachments as $att_id => $attachment)
+            $output .= wp_get_attachment_link($att_id, $size, true) . "\n";
+        return $output;
+    }
+
+    if ($type == 'custom') {
+        $itemtag = 'div';
+        $icontag = 'div';
         $captiontag = 'div';
         $columns = 0;
         $customclass = 'slider';
@@ -435,7 +578,7 @@ function custom_post_gallery( $output, $attr) {
     $itemtag = tag_escape($itemtag);
     $captiontag = tag_escape($captiontag);
     $columns = intval($columns);
-    $itemwidth = $columns > 0 ? floor(100/$columns) : 100;
+    $itemwidth = $columns > 0 ? floor(100 / $columns) : 100;
     $float = is_rtl() ? 'right' : 'left';
     $selector = "gallery-{$instance}";
 
@@ -448,18 +591,17 @@ function custom_post_gallery( $output, $attr) {
                 float: {$float};
                 margin-top: 5px;
                 text-align: center;
-                width: {$itemwidth}%;           }
+                width: {$itemwidth}%;
+            }
             #{$selector} img {
                 border: 0px solid #cfcfcf;
             }
-            #{$selector} .gallery-caption {
-                margin-left: 0;
-            }
+
         </style>
         <div id='$selector' class='$customclass gallery galleryid-{$id} gallery-{$type}'>");
 
     $i = 0;
-    foreach ( $attachments as $id => $attachment ) {
+    foreach ($attachments as $id => $attachment) {
         $link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false);
 
         $output .= "<{$itemtag} class='gallery-item'>";
@@ -480,23 +622,26 @@ function custom_post_gallery( $output, $attr) {
             <a href='#' data-reveal-id='modal-$id'>" . wp_get_attachment_image($id, $size) . "</a>
         </{$icontag}>";
 
-        if ( $captiontag ) {
+        if ($captiontag) {
             $output .= "
                 <{$captiontag} id='modal-$id' class='reveal-modal medium' data-reveal>
-                <br />". wp_get_attachment_image($id, 'full') ."<a class='close-reveal-modal'>&#215;</a>
+                <br />" . wp_get_attachment_image($id, 'full') . "<a class='close-reveal-modal'>&#215;</a>
                 </{$captiontag}>";
         }
 
         $output .= "</{$itemtag}>";
-        if ( $columns > 0 && ++$i % $columns == 0 )
+        if ($columns > 0 && ++$i % $columns == 0)
             $output .= '<br style="clear: both;" />';
     }
     $output .= "</div>\n";
 
     return $output;
 }
-add_filter( 'post_gallery', 'custom_post_gallery', 10, 2 );
-//add_filter('post_gallery', 'my_post_gallery', 10, 2);
+
+//add_filter( 'post_gallery', 'custom_post_gallery', 10, 2 );
+//add_filter('post_gallery', 'super_custom_post_gallery', 10, 2);
+
+
 
 
 

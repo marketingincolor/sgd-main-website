@@ -40,10 +40,9 @@
  * 9.0 - Print
  */
 
-/**
- * 1.0 Foundation Overrides
- * -----------------------------------------------------------------------------
- */
+
+/* 1.0 Foundation Overrides
+----------------------------------------------------------------------------- */
 body { color: #363636; font-family: 'Open Sans', sans-serif !important; }
 h1 { font-size: 38px; font-size: 2.35rem;/*font-size: 38px; font-size: 2.111rem;*/ }
 h2 { font-size: 35px; font-size: 2.2rem; line-height:2.2rem;/*font-size: 35px; font-size: 1.944rem; line-height:2.2rem;*/ }
@@ -198,18 +197,15 @@ table tr th, table tr td { font-size: 1rem; }
 }
 .carousel ul { width: auto !important; }
 .clearing-close { color:#EEE !important; text-decoration:none !important; }
+dialog, .reveal-modal { min-height: inherit !important; }
 
-/**
- * 2.0 Repeatable Patterns
- * -----------------------------------------------------------------------------
- */
+/* 2.0 Repeatable Patterns
+----------------------------------------------------------------------------- */
 .yellow { color: #FFDD00; }
 .red {  color: #EE3124; }
 
-/**
- * 3.0 Basic Structure
- * -----------------------------------------------------------------------------
- */
+/* 3.0 Basic Structure
+----------------------------------------------------------------------------- */
 .header-bgnd { background-color: #000; height: 260px; }
 .hero-bgnd { background-color: #EE3124; max-height:345px !important; overflow:hidden; }
 .site-content {}
@@ -228,6 +224,7 @@ table tr th, table tr td { font-size: 1rem; }
 #video-showcase-news .listing-item { font-size: 1em; }
 #video-showcase-news .date { font-size: 14px; }
 #video-showcase-thumb { border-left: 1px solid #ccc; }
+
 /* WordPress Elements
 -------------------------------------------------------------------------------*/
 .post {}
@@ -271,10 +268,9 @@ table tr th, table tr td { font-size: 1rem; }
 }
 
 
-/**
- * 4.0 Header
- * -----------------------------------------------------------------------------
- */
+
+/* 4.0 Header
+----------------------------------------------------------------------------- */
 #site-title { margin-top: 48px; padding-left: 2.4em; }
 #social-container { height:260px; text-align:right; }
 .social-icons { height: 36px; margin-top: 36px;}
@@ -432,16 +428,15 @@ span.wpcf7-form-control-wrap.state { display: inline-block; width:25%; }
     cursor: pointer;
 }
 
-
+.no-dropdown, .not-form-btn { text-decoration:underline; }
 .mobile-service-slider { margin-top: 10px; margin-bottom: 10px; }
 .mobile-service-slider .service-icons-box { height:103px; display: inline-block; }
 .mobile-service-slider .service-icons-text { display: block; padding: 40px 0px 0px 110px; font-weight:bold; color:#363636; }
 .mobile-service-slider .slick-prev:before, .mobile-service-slider .slick-next:before { color:initial; font-size:24px; }
 .mobile-service-slider .slick-dots { bottom:-40px; margin-left: 0em !important;}
-/**
- * 5.0 Content
- * -----------------------------------------------------------------------------
- */
+
+/* 5.0 Content
+----------------------------------------------------------------------------- */
 /*.post-head { margin: 20px 0px; }
 .post-head img.wp-post-image { float: left; margin-right: 20px; }
 .post-head .meta, .post .meta { display: inline; color: #9E9E9E; font-size: .875rem; }
@@ -471,7 +466,7 @@ span.wpcf7-form-control-wrap.state { display: inline-block; width:25%; }
 .news-main .listing-item .image .wp-post-image { height: auto; width: auto; float: left; margin-right: 10px; }
 
 .news-list { display: inline-block; margin-bottom: 1.25rem; }
-.news-list ul { line-height: 1.2 !important;}
+.news-list ul, .news-list span { line-height: 1.2 !important;}
 .news-list .listing-item { font-size: 1em; margin-bottom: 1em; }
 .news-list .listing-item .title { font-weight: bold; display: block; text-decoration: none !important; }
 .news-list .listing-item .title:hover { text-decoration: underline !important; }
@@ -500,18 +495,69 @@ span.wpcf7-form-control-wrap.state { display: inline-block; width:25%; }
 }
 .wpsl-info-window p { font-size: 0.9em; }
 
-/**
- * 5.5 Post Formats / Subpages
- * -----------------------------------------------------------------------------
- */
+
+/* 5.4 Galleries
+----------------------------------------------------------------------------- */
+.soliloquy-container .soliloquy-next, .soliloquy-container .soliloquy-next:hover,
+.soliloquy-container .soliloquy-prev, .soliloquy-container .soliloquy-prev:hover {
+    background: no-repeat scroll 50% 50% rgba(0, 0, 0, 0) !important;
+    margin-top: 0px !important;
+}
+.soliloquy-container .soliloquy-wrapper { padding:5px !important; }
+.textwidget .soliloquy-prev, #optional-sidebar .soliloquy-prev {
+    top: 22% !important;
+    border-top: 28px solid transparent !important;
+    border-bottom: 28px solid transparent !important;
+}
+.textwidget .soliloquy-next, #optional-sidebar .soliloquy-next {
+    top: 22% !important;
+    right: -10px !important;
+    border-top: 28px solid transparent !important;
+    border-bottom: 28px solid transparent !important;
+}
+
+#lightbox {
+    position:fixed; /* keeps the lightbox window in the current viewport */
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,.7);
+    text-align:center;
+    z-index:1000;
+}
+#lightbox p {
+    text-align:right;
+    color:#fff;
+    margin-right:20px;
+    font-size:12px;
+}
+#lightbox img {
+    box-shadow:0 0 25px #111;
+    -webkit-box-shadow:0 0 25px #111;
+    -moz-box-shadow:0 0 25px #111;
+    height:90%;
+}
+#lightbox-content {
+    /*margin:5% 20% 0 20%;*/
+    height:74%;
+}
+#lightbox-control {
+    height:25%;
+    margin:5px;
+}
+#lightbox-control img {
+    height:75%;
+}
+/* 5.5 Post Formats / Subpages
+----------------------------------------------------------------------------- */
 .commentlist { list-style: none; }
 #comment-nav ul { list-style: none; }
 .smbox { width: 40%; margin-right: 2%; float: left; }
+.site-content .entry-title { margin-top:0.5em; }
 
-/**
- * 6.0 Sidebar
- * -----------------------------------------------------------------------------
- */
+/* 6.0 Sidebar
+----------------------------------------------------------------------------- */
 .primary-sidebar {  }
 .display-posts-listing {  list-style: none; }
 .listing-item { display:inline-block; font-size: 14px; margin-bottom: 1.25em; }
@@ -581,10 +627,9 @@ span.wpcf7-form-control-wrap.state { display: inline-block; width:25%; }
     border-bottom: 40px solid transparent;
     border-left: 10px solid #EE3124;
 }
-/**
- * 6.1 Widgets
- * -----------------------------------------------------------------------------
- */
+
+/* 6.1 Widgets
+----------------------------------------------------------------------------- */
 .widget { margin-bottom: 1.5em; }
 .widget ul { list-style: none; }
 .widget-area {}
@@ -620,10 +665,9 @@ span.wpcf7-form-control-wrap.state { display: inline-block; width:25%; }
 .five-sixths { width: 82%; }
 .first { clear: both; padding-left: 0; }
 
-/**
- * 7.0 Footer
- * -----------------------------------------------------------------------------
- */
+
+/* 7.0 Footer
+----------------------------------------------------------------------------- */
 .site-footer { color: #363636; background-color: #CCC; margin-top: 30px; padding-top:30px; border-top: 3px solid #363636; }
 .site-footer .widget {  }
 .phone-ftr {
@@ -702,10 +746,9 @@ span.wpcf7-form-control-wrap.state { display: inline-block; width:25%; }
 
 #mobile-footer .sections-widget img { float: none !important; }
 #mobile-footer .sections-widget h5 { display:inline-block; min-width:110px; }
-/**
- * 8.0 Mobile
- * -----------------------------------------------------------------------------
- */
+
+/* 8.0 Mobile
+----------------------------------------------------------------------------- */
 #mobile-header { text-align:center;}
 #mobile-logo { margin-top:15px; max-width: 60%; }
 #mobile-link {}
@@ -766,6 +809,7 @@ span.wpcf7-form-control-wrap.state { display: inline-block; width:25%; }
     .top-bar-section li:not(.has-form) a:hover:not(.button) { padding: 0px 15px; }
     .top-bar-section li.active:not(.has-form) a:not(.button) { padding: 0px 15px; }
     .top-bar-section li.active:not(.has-form) a:hover:not(.button) {padding: 0px 15px; }
+    .entry-content li { text-align: center; width: 100%; }
     #mobile-main {  }
     #mobile-body {  }
     div.display-posts-listing { display: inline-block; margin: 3% 0 0 3%; }

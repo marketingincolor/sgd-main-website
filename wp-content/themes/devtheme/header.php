@@ -11,7 +11,7 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?php bloginfo('name'); ?> </title>
+    <title><?php bloginfo('name'); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -20,6 +20,17 @@
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/style.css">
     <script src="<?php echo get_template_directory_uri(); ?>/js/vendor/modernizr.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/js/preload.js"></script>
+
+    <script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.orbit.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.accordion.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.topbar.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.dropdown.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.reveal.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.clearing.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.equalizer.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/slick/slick.min.js"></script>
     <?php wp_head(); ?>
 </head>
 
@@ -171,9 +182,9 @@ if ( is_front_page() ) {
         }*/ ?>
 
         <div class="mobile-pdi">
-            <a class="form-btn">FREE Property Damage Inspection <span class="ind">&rsaquo;</span></a>
+            <a href="<?php echo home_url(); ?>/inspection-request" class="not-form-btn">FREE Property Damage Inspection <span class="ind">&rsaquo;</span></a>
         </div>
-        <div id="mobile-menu" class="phone-menu mobile-form-menu">
+        <!--<div id="mobile-menu" class="phone-menu mobile-form-menu">
             <div class="phone-menu-top">
                 &nbsp;
                 <div class="phone-menu-main">
@@ -185,11 +196,11 @@ if ( is_front_page() ) {
                     else :
                         $the_location = '';
                     endif;
-                    echo do_shortcode('[contact-form-7 title="Inspection Request SHORT '.$the_location.'"]');
+                    //echo do_shortcode('[contact-form-7 title="Inspection Request SHORT '.$the_location.'"]');
                     ?>
                 </div>
             </div>
-        </div>
+        </div>-->
         <?php if (is_front_page()) : ?>
         <div style="width:100%; text-align:center;">
             <div class="mobile-service-slider show-for-small-only" style="width:70%; left:15%;">

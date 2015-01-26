@@ -76,7 +76,7 @@
 <?php wp_footer(); ?>
 </footer><!-- end footer -->
 
-<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery.js"></script>
+<!--<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.orbit.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.accordion.js"></script>
@@ -85,18 +85,47 @@
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.reveal.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.clearing.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.equalizer.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/slick/slick.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/slick/slick.min.js"></script>-->
 
 <script>
     $(document).foundation();
 </script>
 
 <script type="text/javascript">
-    jQuery(document).ready(function($) {
+    /*jQuery(document).ready(function($) {
+
+
+
+
+
+
+
+        var increment = 1;
+        var slide_count = $('.gallery-custom').find('img').length;
+        //var elements = document.getElementsByClassName('.gallery-custom');
+        //var arr = $.makeArray(elements);
+        //$(arr).appendTo('#lightbox-control');
+        //var slide_inner = '';
+        for (var i=0; i < slide_count; i++) {
+            if (slide_count > increment) {
+                //$('#lightbox-control').append('<span>test message' + arr[i] + '</span>');
+                //slide_inner = '<p>' + arr[i] + '</p>';
+            }
+            else {
+
+            }
+        }
+        //alert(slide_count);
+
+
+
+
+
+
         $('.gallery-custom').slick({
             slidesToShow: 3,
             slidesToScroll: 1,
-            //slide: "li",
+            //slide: 'li',
             draggable: false,
             autoplay: true,
             autoplaySpeed: 5000
@@ -106,7 +135,39 @@
             autoplay: true,
             autoplaySpeed: 5000
         });
-    });
+
+
+        $('.lightboxx_trigger').click(function(e) {
+            e.preventDefault();
+            var image_href = $(this).attr("href");
+            //var image_thumb_href = $('img', this).attr("src");
+            var image_thumb_href = $(this).children("img").attr("src");
+            if ($('#lightboxx').length > 0) {
+                //$('#lightbox-content').html('<img src="' + image_href + '" />');
+                //show lightbox window - you could use .show('fast') for a transition
+                //$('#lightbox').show();
+            }
+            else {
+                //var lightbox =
+                    //'<div id="lightbox">' +
+                    //'<p id="lightbox-close">Click to close</p>' +
+                    //'<div id="lightbox-content"><img src="' + image_href +'" /></div>' +
+                    //'<div id="lightbox-control"><img src="' + image_thumb_href +'" /></div>' +
+                    //'<div id="lightbox-control">' + slide_inner + '</div>' +
+                    //'</div>';
+                //$('body').append(lightbox);
+
+                //$('#lightbox-content').append(image_href);
+                //$('#lightbox-control').append(slide_inner);
+
+            }
+            //$('#lightbox-close').click(function() {
+                //$('#lightbox').hide();
+            //});
+            //$(arr).appendTo('#lightbox-control');
+        });
+    });*/
+
 </script>
 
 </body>
