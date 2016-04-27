@@ -182,7 +182,7 @@ if ( is_front_page() ) {
         }*/ ?>
 
         <div class="mobile-pdi">
-            <a href="<?php echo home_url(); ?>/inspection-request" class="not-form-btn">FREE Property Damage Inspection <span class="ind">&rsaquo;</span></a>
+            <a href="<?php echo home_url(); ?>/locations" class="not-form-btn">FREE Property Damage Inspection <span class="ind">&rsaquo;</span></a>
         </div>
         <!--<div id="mobile-menu" class="phone-menu mobile-form-menu">
             <div class="phone-menu-top">
@@ -202,16 +202,42 @@ if ( is_front_page() ) {
             </div>
         </div>-->
         <?php if (is_front_page()) : ?>
-        <div style="width:100%; text-align:center;">
-            <div class="mobile-service-slider show-for-small-only" style="width:70%; left:15%;">
-                <div><a href="services/residential-services" class="service-icons-box" id="icn-roof"><span class="service-icons-text">Roofing</span></a></div>
-                <div><a href="services/residential-services" class="service-icons-box" id="icn-gutter"><span class="service-icons-text">Gutters</span></a></div>
-                <div><a href="services/residential-services" class="service-icons-box" id="icn-side"><span class="service-icons-text">Siding</span></a></div>
-                <div><a href="services/residential-services" class="service-icons-box" id="icn-paint"><span class="service-icons-text">Paint</span></a></div>
-                <div><a href="services/residential-services" class="service-icons-box" id="icn-wind"><span class="service-icons-text">Windows</span></a></div>
-                <div><a href="services/residential-services" class="service-icons-box" id="icn-tarp"><span class="service-icons-text">Emergency Tarping</span></a></div>
-            </div>
-        </div>
+
+	        <div style="width:100%; text-align:center;">
+		        <div class="mobile-service-slider show-for-small-only" style="width:70%; margin-left:15%;">
+				    <?php
+				    $orbit_options = "animation:slide;
+			        timer_speed:6000;
+			        resume_on_mouseout:true;
+			        animation_speed:500;
+			        navigation_arrows:true;
+			        slide_number:false;
+			        bullets:true;
+			        circular:true;";
+				    ?>
+				    <ul class="mobile-slides-orbit" data-orbit data-options="<?php echo $orbit_options; ?>">
+					    <li>
+						    <div><a href="services/residential-services" class="service-icons-box" id="icn-roof"><span class="service-icons-text">Roofing</span></a></div>
+					    </li>
+					    <li>
+						    <div><a href="services/residential-services" class="service-icons-box" id="icn-gutter"><span class="service-icons-text">Gutters</span></a></div>
+					    </li>
+					    <li>
+						    <div><a href="services/residential-services" class="service-icons-box" id="icn-side"><span class="service-icons-text">Siding</span></a></div>
+					    </li>
+					    <li>
+						    <div><a href="services/residential-services" class="service-icons-box" id="icn-paint"><span class="service-icons-text">Paint</span></a></div>
+					    </li>
+					    <li>
+						    <div><a href="services/residential-services" class="service-icons-box" id="icn-wind"><span class="service-icons-text">Windows</span></a></div>
+					    </li>
+					    <li>
+						    <div><a href="services/residential-services" class="service-icons-box" id="icn-tarp"><span class="service-icons-text">Emergency Tarping</span></a></div>
+					    </li>
+				    </ul>
+			    </div>
+			</div>
+
         <?php endif; ?>
         <?php
         if ( is_front_page() ) {

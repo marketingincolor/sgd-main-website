@@ -54,7 +54,7 @@
             <nav role="navigation" class="bottom-bar footer-navigation">
                 <?php //wp_nav_menu( array( 'theme_location' => 'secondary' ) ); ?>
                 <ul id="secondary-nav">
-                    <li class="lead-line">&copy;<?php echo date("Y") ?> Storm Guard Restoration LLC</li>
+                    <li class="lead-line">&copy;<?php echo date("Y") ?> Storm Guard Franchise Systems LLC</li>
                     <?php
                     $defaults = array(
                         'theme_location'  => 'secondary',
@@ -86,19 +86,15 @@
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.clearing.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.equalizer.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/slick/slick.min.js"></script>-->
-
+<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/foundation.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/foundation/foundation.orbit.js"></script>
 <script>
-    $(document).foundation();
+    $(document).foundation('orbit', 'reflow');
 </script>
 
 <script type="text/javascript">
     /*jQuery(document).ready(function($) {
-
-
-
-
-
-
 
         var increment = 1;
         var slide_count = $('.gallery-custom').find('img').length;
@@ -116,9 +112,6 @@
             }
         }
         //alert(slide_count);
-
-
-
 
 
 

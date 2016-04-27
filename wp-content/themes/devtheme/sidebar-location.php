@@ -74,9 +74,7 @@
                 $span = get_user_meta( $post->post_author, 'sp_an', true );
                 $slug = $span.'-aff';
             endif;?>
-            <?php if ( $span == '003NC') { echo '<h5>Affiliations</h5>'; } ?>
             <?php if ( function_exists( 'soliloquy' ) ) { soliloquy($slug, 'slug'); } ?>
-
             <!-- Add BazaarVoice Content -->
             <?php /*if ( get_user_meta( $post->post_author, 'sp_an', true ) ) :
                 require get_template_directory() . '/includes/summary-locations.php';

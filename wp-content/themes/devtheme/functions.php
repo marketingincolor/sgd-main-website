@@ -114,7 +114,7 @@ add_filter( 'widget_text', 'do_shortcode');
 // Add Custom Shortcodes
 // Shortcode for [inspect-request]
 function insert_inspection_request() {
-    return '<h6><a href="'. home_url() .'/inspection-request"><i>Request a FREE property damage inspection today for your home or business</i></a></h6>';
+    return '<h6><a href="'. home_url() .'/locations"><i>Request a FREE property damage inspection today for your home or business</i></a></h6>';
 }
 add_shortcode('inspect-request', 'insert_inspection_request');
 
@@ -193,28 +193,30 @@ function display_cta_panel( $page_location ){
     echo '<div class="cta-panel">';
     echo '<div class="'.$location.'-location-link hide"><a href="'.home_url().'/'.$_COOKIE["fm-location"].'">Back to '.$_COOKIE["fm-name"].' Page &raquo;</a></div>';
 
-    //--------------------START REVISED-------------------//
-    //echo '<div class="location-form '.$location.'-location-form"><form>';
-    echo '<div class="location-form '.$location.'-location-form"><form method="post" action="">';
-    //--------------------END REVISED-------------------//
+    ///////////////////////REMOVAL OF LOOKUP//////////////////
+    ////--------------------START REVISED-------------------//
+    ////echo '<div class="location-form '.$location.'-location-form"><form>';
+    //echo '<div class="location-form '.$location.'-location-form"><form method="post" action="">';
+    ////--------------------END REVISED-------------------//
 
-    if ($page_location == 'footer') { echo '<div class="wpsl-detail-icomap"> </div>'; }
-    echo '<div class="location-'.$location.'">Find a Location</div>';
-    if ($page_location == 'mobile') { echo '<br />'; }
+    //if ($page_location == 'footer') { echo '<div class="wpsl-detail-icomap"> </div>'; }
+    //echo '<div class="location-'.$location.'">Find a Location</div>';
+    //if ($page_location == 'mobile') { echo '<br />'; }
 
-    if ($page_location != 'footer') { echo '<div class="wpsl-detail-wtri"> </div>'; }
+    //if ($page_location != 'footer') { echo '<div class="wpsl-detail-wtri"> </div>'; }
 
-    //--------------------START REVISED-------------------//
-    //echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" value="" placeholder=" Enter Zip Code"></div>';
-    echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" name="zip-code-lookup" value="" placeholder=" Enter Zip Code" /></div>';
-    //--------------------END REVISED-------------------//
+    ////--------------------START REVISED-------------------//
+    ////echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" value="" placeholder=" Enter Zip Code"></div>';
+    //echo '<div class="wpsl-input-'.$location.'"><input id="wpsl-search-input-'.$location.'" autocomplete="on" type="text" name="zip-code-lookup" value="" placeholder=" Enter Zip Code" /></div>';
+    ////--------------------END REVISED-------------------//
 
-    if ($page_location != 'footer') { echo '<div class="wpsl-detail-ytri"> </div>'; }
+    //if ($page_location != 'footer') { echo '<div class="wpsl-detail-ytri"> </div>'; }
 
-    echo '<div class="wpsl-button-'.$location.'"><input type="submit" name="submit" id="wpsl-search-button-'.$location.'" value=""></div>';
-    echo '</form></div>';
+    //echo '<div class="wpsl-button-'.$location.'"><input type="submit" name="submit" id="wpsl-search-button-'.$location.'" value=""></div>';
+    //echo '</form></div>';
 
     if ($page_location == 'header') {
+        echo '<div class="location-btn" style="margin-bottom: 22px;"><a href="'.home_url().'/locations"><img src="'. get_template_directory_uri(). '/img/sgd_grfx_btn_find_loc.png"></a></div>';
         require get_template_directory() . '/includes/pdi-form.php';
     }
     echo '</div>';

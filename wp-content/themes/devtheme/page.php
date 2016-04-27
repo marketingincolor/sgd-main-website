@@ -28,10 +28,11 @@ endif;
         endwhile;
         ?>
 
-    <?php if ( is_page('news') ) :?>
+    <?php if ( is_page('tips') ) :?>
 
         <?php
-        $inner_query = new WP_Query(); $inner_query->query('category_name='.get_the_title().'&posts_per_page=4' . '&paged='.$paged.'');
+        $inner_query = new WP_Query();
+	    $inner_query->query('category_name=news&posts_per_page=6' . '&paged='.$paged.'');
         ?>
 
         <div class="news-list" style="margin-left:15px;">
@@ -57,6 +58,7 @@ endif;
 
         <div class="page-nav">
         <?php
+        echo "<a href='".home_url()."/tips'>Tips</a>&nbsp;";
         $big = 999999999; // need an unlikely integer
         echo paginate_links( array(
             'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
